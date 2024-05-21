@@ -18,6 +18,8 @@ import { useState } from "react";
 import { auth } from "./components/firebase";
 import SignInwithPhone from "./components/SignInwithPhone";
 import MainLandingPage from "./components/MainLandingPage";
+import PageNotFound from "./components/PageNotFound";
+import MyProfile from "./components/Pages/MyProfile";
 
 function App() {
   const [user, setUser] = useState();
@@ -41,6 +43,8 @@ function App() {
               <Route path="/Home" element={<Home />} />
               <Route path="/SignInwithPhone" element={<SignInwithPhone />} />
               <Route path="/MainLandingPage" element={<MainLandingPage />} />
+              <Route path="/MyProfile" element={<MyProfile />} />
+              <Route path="*" element={<PageNotFound />}/>
             </Routes>
             <ToastContainer />
           </div>
