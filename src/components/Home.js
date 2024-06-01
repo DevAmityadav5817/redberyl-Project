@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import Layout from "./Layout/Layout";
-import Slider from "react-styled-carousel";
-import ImageCard from "./ImageCard"
+import ImageCard from "./ImageCard";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import videoHome from "../img/HomeVideo.mp4"
+import Gallery from "react-photo-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
+
+
+
+
 
 function Home() {
   const responsive = [
@@ -9,101 +18,114 @@ function Home() {
     { breakPoint: 760, cardsToShow: 2 },
     { breakPoint: 460, cardsToShow: 1 },
   ];
+  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+  const openLightbox = useCallback((event, { photo, index }) => {
+    setCurrentImage(index);
+    setViewerIsOpen(true);
+  }, []);
+
+  const closeLightbox = () => {
+    setCurrentImage(0);
+    setViewerIsOpen(false);
+  };
+
+  const photos = [
+    {
+      src: "https://source.unsplash.com/2ShvY8Lf6l0/800x599",
+      width: 4,
+      height: 3
+    },
+    {
+      src: "https://source.unsplash.com/Dm-qxdynoEc/800x799",
+      width: 1,
+      height: 1
+    },
+    {
+      src: "https://source.unsplash.com/qDkso9nvCg0/600x799",
+      width: 3,
+      height: 4
+    },
+    {
+      src: "https://source.unsplash.com/iecJiKe_RNg/600x799",
+      width: 3,
+      height: 4
+    },
+    {
+      src: "https://source.unsplash.com/epcsn8Ed8kY/600x799",
+      width: 3,
+      height: 4
+    },
+    {
+      src: "https://source.unsplash.com/NQSWvyVRIJk/800x599",
+      width: 4,
+      height: 3
+    },
+    {
+      src: "https://source.unsplash.com/zh7GEuORbUw/600x799",
+      width: 3,
+      height: 4
+    },
+    {
+      src: "https://source.unsplash.com/PpOHJezOalU/800x599",
+      width: 4,
+      height: 3
+    },
+    {
+      src: "https://source.unsplash.com/I1ASdgphUH4/800x599",
+      width: 4,
+      height: 3
+    }
+  ];
+
+
+
+
+
+
+  var settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
   return (
     <>
 
       <Layout reponsive={responsive}>
-        <div className="relative overflow-hidden bg-white">
-          <div className="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
-            <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
-              <div className="sm:max-w-lg">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Summer styles are finally here
-                </h1>
-                <p className="mt-4 text-xl text-gray-500">
-                  This year, our new summer collection will shelter you from the harsh elements of a world that doesn't care
-                  if you live or die.
-                </p>
-              </div>
-              <div>
-                <div className="mt-10">
-                  {/* Decorative image grid */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl"
-                  >
-                    <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
-                      <div className="flex items-center space-x-6 lg:space-x-8">
-                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                          <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
-                            <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
-                              alt=""
-                              className="h-full w-full object-cover object-center"
-                            />
-                          </div>
-                          <div className="h-64 w-44 overflow-hidden rounded-lg">
-                            <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
-                              alt=""
-                              className="h-full w-full object-cover object-center"
-                            />
-                          </div>
-                        </div>
-                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                          <div className="h-64 w-44 overflow-hidden rounded-lg">
-                            <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg"
-                              alt=""
-                              className="h-full w-full object-cover object-center"
-                            />
-                          </div>
-                          <div className="h-64 w-44 overflow-hidden rounded-lg">
-                            <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
-                              alt=""
-                              className="h-full w-full object-cover object-center"
-                            />
-                          </div>
-                          <div className="h-64 w-44 overflow-hidden rounded-lg">
-                            <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
-                              alt=""
-                              className="h-full w-full object-cover object-center"
-                            />
-                          </div>
-                        </div>
-                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                          <div className="h-64 w-44 overflow-hidden rounded-lg">
-                            <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
-                              alt=""
-                              className="h-full w-full object-cover object-center"
-                            />
-                          </div>
-                          <div className="h-64 w-44 overflow-hidden rounded-lg">
-                            <img
-                              src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
-                              alt=""
-                              className="h-full w-full object-cover object-center"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a
-                    href="#"
-                    className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
-                  >
-                    Shop Collection
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <video className="h-4/5	 w-full rounded-lg mb-5" autoPlay loop muted>
+          <source src={videoHome} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         <div class="container mx-auto">
           <div class="flex justify-between ...">
             <h1 className="text-left mt-3 mb-3  text-lg font-semibold leading-9 text-white">
@@ -115,47 +137,66 @@ function Home() {
             </div>
 
           </div>
-
-          <Slider reponsive={responsive}>
-            <div>
-              <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg">
-                <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
-                <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
-                </p>
-              </ImageCard>
-            </div>
-            <div><ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg">
-              <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
-              <p className="hidden md:block">  With a radiant smile as bright as the summer sun, she joyfully savored her ice cream, savoring each delightful lick as if it were the sweetest moment of her day.
-              </p>
-            </ImageCard></div>
-            <div><ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg">
-              <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
-              <p className="hidden md:block">  With a radiant smile as bright as the summer sun, she joyfully savored her ice cream, savoring each delightful lick as if it were the sweetest moment of her day.
-              </p>
-            </ImageCard></div>
-            <div><ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg">
-              <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
-              <p className="hidden md:block">  With a radiant smile as bright as the summer sun, she joyfully savored her ice cream, savoring each delightful lick as if it were the sweetest moment of her day.
-              </p>
-            </ImageCard></div>
-            <div><ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg">
-              <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
-              <p className="hidden md:block">  With a radiant smile as bright as the summer sun, she joyfully savored her ice cream, savoring each delightful lick as if it were the sweetest moment of her day.
-              </p>
-            </ImageCard></div>
-            <div><ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg">
-              <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
-              <p className="hidden md:block">  With a radiant smile as bright as the summer sun, she joyfully savored her ice cream, savoring each delightful lick as if it were the sweetest moment of her day.
-              </p>
-            </ImageCard></div>
-            <div><ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg">
-              <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
-              <p className="hidden md:block">  With a radiant smile as bright as the summer sun, she joyfully savored her ice cream, savoring each delightful lick as if it were the sweetest moment of her day.
-              </p>
-            </ImageCard></div>
-
-          </Slider>
+          <div className="slider-container">
+            <Slider {...settings}>
+              <div>
+                <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg">
+                  <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
+                  <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
+                  </p>
+                </ImageCard>
+              </div>
+              <div>
+                <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg">
+                  <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
+                  <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
+                  </p>
+                </ImageCard>
+              </div>
+              <div>
+                <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg">
+                  <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
+                  <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
+                  </p>
+                </ImageCard>
+              </div>
+              <div>
+                <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg">
+                  <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
+                  <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
+                  </p>
+                </ImageCard>
+              </div>
+              <div>
+                <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg">
+                  <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
+                  <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
+                  </p>
+                </ImageCard>
+              </div>
+              <div>
+                <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg">
+                  <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
+                  <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
+                  </p>
+                </ImageCard>
+              </div>
+              <div>
+                <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg">
+                  <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
+                  <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
+                  </p>
+                </ImageCard>
+              </div>
+              <div>
+                <ImageCard imgSrc="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-08.jpg">
+                  <h3 className="text-xl font-bold mb-2">Smiling Girl</h3>
+                  <p className="hidden md:block"> She danced through life with a radiant smile, her laughter echoing joy in every step.
+                  </p>
+                </ImageCard>
+              </div>
+            </Slider>
+          </div>
           <h1 className="text-center mt-3 mb-3  text-lg font-semibold leading-12 text-white">
             Curated Offers
           </h1>
@@ -184,50 +225,36 @@ function Home() {
           <h1 className="text-center mt-3 mb-3  text-lg font-semibold leading-12 text-white">
             Event & Gallery
           </h1>
-          <div class="container mx-auto  py-2 lg:px-32 lg:pt-24">
-            <div class="-m-1 flex flex-wrap md:-m-2">
-              <div class="flex w-1/2 flex-wrap">
-                <div class="w-1/2 p-1 md:p-2">
-                  <img
-                    alt="gallery"
-                    class="block h-full w-full rounded-lg object-cover object-center"
-                    src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(70).webp" />
-                </div>
-                <div class="w-1/2 p-1 md:p-2">
-                  <img
-                    alt="gallery"
-                    class="block h-full w-full rounded-lg object-cover object-center"
-                    src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(72).webp" />
-                </div>
-                <div class="w-full p-1 md:p-2">
-                  <img
-                    alt="gallery"
-                    class="block h-full w-full rounded-lg object-cover object-center"
-                    src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp" />
-                </div>
-              </div>
-              <div class="flex w-1/2 flex-wrap">
-                <div class="w-full p-1 md:p-2">
-                  <img
-                    alt="gallery"
-                    class="block h-full w-full rounded-lg object-cover object-center"
-                    src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(74).webp" />
-                </div>
-                <div class="w-1/2 p-1 md:p-2">
-                  <img
-                    alt="gallery"
-                    class="block h-full w-full rounded-lg object-cover object-center"
-                    src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(75).webp" />
-                </div>
-                <div class="w-1/2 p-1 md:p-2">
-                  <img
-                    alt="gallery"
-                    class="block h-full w-full rounded-lg object-cover object-center"
-                    src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(77).webp" />
-                </div>
-              </div>
-            </div>
-          </div>
+          <div className="card p-4"><Gallery photos={photos} className="card rounded-lg object-cover object-center" onClick={openLightbox} /></div>
+          <ModalGateway>
+            {viewerIsOpen ? (
+              <Modal onClose={closeLightbox}>
+                <Carousel
+                  currentIndex={currentImage}
+                  views={photos.map(x => ({
+                    ...x,
+                    srcset: x.srcSet,
+                    caption: x.title
+                  }))}
+                />
+              </Modal>
+            ) : null}
+          </ModalGateway>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
           <h1 className="text-center mt-3 mb-3  text-lg font-semibold leading-12 text-white">
             The legendary membership for a magnificient experience.
           </h1>

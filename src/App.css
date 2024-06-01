@@ -4,3 +4,6 @@ body{
 a{
     text-decoration: none;
 }
+.react-photo-gallery--gallery img{
+    border-radius: 10px;
+}
